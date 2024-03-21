@@ -29,7 +29,7 @@ def handle_client(client_socket, addr):
         print(f"Connection to client ({addr[0]}:{addr[1]}) closed")
 
 def run_server():
-    server_ip = "127.0.0.1" 
+    server_ip = "172.20.144.1" 
     port = 8000  
 
     try:

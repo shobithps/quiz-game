@@ -15,8 +15,8 @@ ssl_context.verify_mode=ssl.CERT_NONE
 
 def connect_client(data):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect(('127.0.0.1', 8000))
-    client=ssl_context.wrap_socket(client, server_hostname='127.0.0.1')
+    client.connect(('172.20.144.1', 8000))
+    client=ssl_context.wrap_socket(client, server_hostname='172.20.144.1')
 
     # Serialize the array to JSON
     json_data = json.dumps(data)
