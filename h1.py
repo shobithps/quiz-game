@@ -3,13 +3,20 @@ import socket
 import time
 from threading import Thread
 import json
+import ssl
 
 root = tk.Tk()
 root.title('quiz page')
 
+ssl_context=ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+ssl_context.load_verify_locations("quiz.crt")
+ssl_context.check_hostname=False
+ssl_context.verify_mode=ssl.CERT_NONE
+
 def connect_client(data):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(('127.0.0.1', 8000))
+    client=ssl_context.wrap_socket(client, server_hostname='127.0.0.1')
 
     # Serialize the array to JSON
     json_data = json.dumps(data)
@@ -69,7 +76,7 @@ class QuizPage(tk.Toplevel):
                 option_radio_button.pack(pady=2, padx=20, anchor="w")
 
         submit_button = tk.Button(self, text="Submit", font=("Helvetica", 12), bg="#FF6347", fg="#FFFFFF", activebackground="#32CD32", activeforeground="#FFFFFF", bd=0,
-            command=self.calculate_marks)
+            command=Thread(target=self.calculate_marks, daemon=True).start)
         submit_button.pack(pady=20, padx=20, ipadx=10, ipady=5)
 
         self.start_time = time.time()

@@ -2,6 +2,11 @@ import socket
 import threading
 import json
 import tkinter as tk
+import ssl
+
+ssl_context=ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+ssl_context.load_cert_chain(certfile='quiz.crt', keyfile='quiz.key')
+
 def handle_client(client_socket, addr):
     try:
         while True:
@@ -35,8 +40,9 @@ def run_server():
 
         while True:
             client_socket, addr = server.accept()
+            conn_ssl=ssl_context.wrap_socket(client_socket, server_side=True)
             print(f"Accepted connection from {addr[0]}:{addr[1]}")
-            thread = threading.Thread(target=handle_client, args=(client_socket, addr,))
+            thread = threading.Thread(target=handle_client, args=(conn_ssl, addr,), daemon=True)
             thread.start()
     except Exception as e:
         print(f"Error: {e}")
