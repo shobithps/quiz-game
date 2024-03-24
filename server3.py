@@ -1,7 +1,6 @@
 import socket
 import threading
 import json
-import tkinter as tk
 import ssl
 
 ssl_context=ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
@@ -29,8 +28,8 @@ def handle_client(client_socket, addr):
         print(f"Connection to client ({addr[0]}:{addr[1]}) closed")
 
 def run_server():
-    server_ip = "172.20.144.1" 
-    port = 8000  
+    server_ip = "10.0.0.4" 
+    port = 5555  
 
     try:
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -42,31 +41,13 @@ def run_server():
             client_socket, addr = server.accept()
             conn_ssl=ssl_context.wrap_socket(client_socket, server_side=True)
             print(f"Accepted connection from {addr[0]}:{addr[1]}")
-            thread = threading.Thread(target=handle_client, args=(conn_ssl, addr,), daemon=True)
+            thread = threading.Thread(target=handle_client, args=(conn_ssl, addr), daemon=True)
             thread.start()
     except Exception as e:
         print(f"Error: {e}")
     finally:
         server.close()
 
-leaderboard_window = tk.Tk()
-leaderboard_window.title("Quiz Leaderboard")
-
-leaderboard_listbox = tk.Listbox(leaderboard_window)
-leaderboard_listbox.pack(expand=True, fill=tk.BOTH)
-
 leaderboard = []
 
-def update_leaderboard():
-    leaderboard_listbox.delete(0, tk.END)
-    
-    for rank, participant in enumerate(leaderboard, start=1):
-        leaderboard_listbox.insert(tk.END, f"Rank: {rank}, Name: {participant[0]}, Score: {participant[1]}, Time: {participant[2]}")
-
-    leaderboard_window.after(1000, update_leaderboard)
-
-update_leaderboard()
-
 run_server()
-
-leaderboard_window.mainloop()
