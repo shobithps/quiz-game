@@ -6,9 +6,8 @@ import customtkinter as ttk
 import tkinter as tk
 from tkinter import ttk
 
-
-# ssl_context=ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-# ssl_context.load_cert_chain(certfile='quiz.crt', keyfile='quiz.key')
+IP_ADDR='10.30.202.173'
+PORT=8000
 
 clients=[]
 leaderboard=[]
@@ -67,15 +66,13 @@ def handle_client(client_socket, addr,):
         client_socket.close()
         print(f"Connection to client ({addr[0]}:{addr[1]}) closed")
 
-def run_server():
-    server_ip = "127.0.0.1" 
-    port = 8000  
+def run_server(): 
 
     try:
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.bind((server_ip, port))
+        server.bind((IP_ADDR, PORT))
         server.listen(1)
-        print(f"Listening on {server_ip}:{port}")
+        print(f"Listening on {IP_ADDR}:{PORT}")
 
         while True:
             client_socket, addr = server.accept()

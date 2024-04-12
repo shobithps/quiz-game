@@ -9,6 +9,9 @@ import socket
 import time 
 import ssl
 
+IP_ADDR="10.30.202.173"
+PORT=8000
+
 start_time=None
 correct_options=[1,3,3,]
 my_options=[]
@@ -239,8 +242,8 @@ def transition(window,name):
     def connect_client(marks,time_taken):
         global response
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect(('127.0.0.1', 8000))
-        client=ssl_context.wrap_socket(client, server_hostname='127.0.0.1')
+        client.connect((IP_ADDR, PORT))
+        client=ssl_context.wrap_socket(client, server_hostname=IP_ADDR)
         data=[name,marks,time_taken]
         # Serialize the array to JSON
         json_data = json.dumps(data)
@@ -267,8 +270,8 @@ def transition(window,name):
     def recieve():
         global response
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect(('127.0.0.1', 8000))
-        client=ssl_context.wrap_socket(client, server_hostname='127.0.0.1')
+        client.connect((IP_ADDR, PORT))
+        client=ssl_context.wrap_socket(client, server_hostname=IP_ADDR)
         data='recieve'
 
         # Send the JSON data
