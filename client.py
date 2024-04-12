@@ -6,10 +6,10 @@ from tkinter import font
 from threading import Thread
 import json
 import socket
-import time 
+import time
 import ssl
 
-IP_ADDR="10.30.202.173"
+IP_ADDR="98.70.98.60"
 PORT=8000
 
 start_time=None
@@ -24,7 +24,7 @@ ssl_context=ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
 ssl_context.load_verify_locations("quiz.crt")
 ssl_context.check_hostname=False
 ssl_context.verify_mode=ssl.CERT_NONE
-    
+
 def transition(window,name):
     close(window)
     start_time=time.time()

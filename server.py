@@ -6,7 +6,7 @@ import customtkinter as ttk
 import tkinter as tk
 from tkinter import ttk
 
-IP_ADDR='10.30.202.173'
+IP_ADDR='98.70.98.60'
 PORT=8000
 
 clients=[]
@@ -19,7 +19,6 @@ ssl_context.load_cert_chain(certfile='quiz.crt', keyfile='quiz.key')
 # def leaderboard_update(leaderboard,data):
 #     for i in data:
 #         leaderboard.append(i)
-    
 
 def convert_integers_to_strings(arr):
                     return [str(num) for num in arr]
@@ -52,8 +51,6 @@ def handle_client(client_socket, addr,):
             
             leaderboard.sort(key=lambda x: (x[1], x[2]))
 
-            
-            
             response = json.dumps(leaderboard) #sending the appended list back to client to display leaderboard
             for i in clients:
                 try:
