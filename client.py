@@ -379,10 +379,10 @@ def transition(window,name):
     button2.pack(side='right')
 
 def fram1(window):
-    Image_original=Image.open('../images/CN_4.png')
+    Image_original=Image.open('./CN_4.png')
     Image_original=Image_original.convert('RGBA')
     Img_tk=ctk.CTkImage(Image_original,Image_original,size=(400,400))
-    Image_original2=Image.open('../images/quiz.png')
+    Image_original2=Image.open('./quiz.png')
     Image_original2=Image_original2.convert('RGBA')
     Img_tk2=ctk.CTkImage(Image_original2,Image_original2,size=(150,90))
 
